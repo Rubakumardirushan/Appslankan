@@ -1,0 +1,25 @@
+{
+    "name": "appslankan/forum",
+    "description": "this package install basic forum models and migrations, models {auth,thread,post,thread_view,post_likes}",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Appslankan\\Forum\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Appslankan\\Forum\\ForumServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "dirushan"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
