@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('thread__views', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('thread_id')->constrained()->on('threads')->onDelete('cascade');
-            $table->foreignId('auth_id')->constrained()->on('auths')->onDelete('cascade');
-            $table->engine = 'InnoDB';
+            $table->string('name');
+            $table->text('description')->nullable();
+            
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('thread__views');
+        Schema::dropIfExists('categories');
     }
 };

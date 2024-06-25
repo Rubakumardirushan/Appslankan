@@ -4,12 +4,17 @@ namespace Appslankan\Forum\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Thread_View extends Model
+use Appslankan\Forum\Models\Thread;
+class Category extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'thread_id',
-        'auth_id',
+       'name',
+       'description'
     ];
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
 }

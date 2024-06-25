@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('threads', function (Blueprint $table) {
             $table->id();
+     
             $table->string('title');
             $table->text('body');
-            $table->string('channel');
-            $table->unsignedInteger('replies_count')->default(0);
-            $table->unsignedInteger('views')->default(0);
-            $table->string('solved')->default('no');
-            $table->string('avatar')->nullable();
-            $table->string('author_name');
-            $table->foreignId('auth_id')->constrained()->on('auths')->onDelete('cascade');
-            $table->engine = 'InnoDB';
+            $table->foreignId('user_id')->constrained()->on('users')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->on('categories')->onDelete('cascade');
+           
+
+          
             $table->timestamps();
         });
     }

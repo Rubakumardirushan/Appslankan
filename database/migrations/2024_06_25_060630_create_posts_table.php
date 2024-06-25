@@ -13,17 +13,12 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-      
-            $table->text('replay');
-            $table->string('author_name');
-            $table->string('avatar')->nullable();
-            $table->string('best_answer')->default('no');
-            $table->unsignedInteger('likes')->default(0);
-            $table->unsignedInteger('replay_post_id')->nullable();
+            $table->text('content');
+            $table->foreignId('user_id')->constrained()->on('users')->onDelete('cascade');
             $table->foreignId('thread_id')->constrained()->on('threads')->onDelete('cascade');
-            $table->foreignId('auth_id')->constrained()->on('auths')->onDelete('cascade');
+
+
             $table->timestamps();
-            $table->engine = 'InnoDB';
         });
     }
 
