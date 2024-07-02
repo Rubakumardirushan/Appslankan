@@ -9,6 +9,7 @@ use App\Models\User;
 class Post extends Model
 {
     use HasFactory;
+    protected $table=''forum_flex_posts';
     protected $fillable = [
         'body',
         'thread_id',
