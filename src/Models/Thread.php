@@ -14,7 +14,7 @@ class Thread extends Model
         'title',
         'body',
        'category_id',
-         'user_id',
+         'author_id',
     ];
     public function posts()
     {
