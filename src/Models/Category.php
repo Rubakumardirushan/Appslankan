@@ -8,7 +8,7 @@ use Appslankan\Forum\Models\Thread;
 class Category extends Model
 {
     use HasFactory;
-     portected $table=''forum_flex_categories';
+     protected $table=''forum_flex_categories';
     protected $fillable = [
        'name',
        'description',
