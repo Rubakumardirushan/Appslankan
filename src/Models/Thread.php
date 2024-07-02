@@ -10,6 +10,7 @@ use Appslankan\Forum\Models\Category;
 class Thread extends Model
 {
     use HasFactory;
+    protected $table=''forum_flex_threads';
     protected $fillable = [
         'title',
         'body',
