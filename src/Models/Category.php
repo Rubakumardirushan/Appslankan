@@ -8,6 +8,7 @@ use Appslankan\Forum\Models\Thread;
 class Category extends Model
 {
     use HasFactory;
+    
     protected $fillable = [
        'name',
        'description',
