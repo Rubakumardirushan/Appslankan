@@ -11,7 +11,9 @@ class ForumServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->mergeConfigFrom(__DIR__.'/../config/table.php', 'table');
+       
+
     }
 
     /**
@@ -21,8 +23,10 @@ class ForumServiceProvider extends ServiceProvider
     {
        
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->publishes([
+            __DIR__.'/../config/table.php' => config_path('table.php'),
+        ], 'config');
        
-
     
     }
 }
