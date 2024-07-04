@@ -9,6 +9,7 @@ class Category extends Model
 {
     
     use HasFactory;
+     protected $table='forum_flex_categories';
     protected $fillable = [
        'name',
        'description',

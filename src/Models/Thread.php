@@ -5,18 +5,19 @@ namespace Appslankan\Forum\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Appslankan\Forum\Models\Post;
-use Appslankan\Forum\Models\User;
+use App\Models\User;
 use Appslankan\Forum\Models\Category;
 class Thread extends Model
 {
     use HasFactory;
+    protected $table='forum_flex_threads';
     protected $fillable = [
-         'title',
-         'body',
-         'category_id',
+        'title',
+        'body',
+       'category_id',
          'author_id',
-         'sloved',
-         'reply_count'
+         'slowved',
+            'reply_count'
     ];
     public function posts()
     {
