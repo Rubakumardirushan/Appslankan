@@ -11,10 +11,12 @@ class Thread extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
-        'body',
-       'category_id',
-         'user_id',
+         'title',
+         'body',
+         'category_id',
+         'author_id',
+         'sloved',
+         'reply_count'
     ];
     public function posts()
     {
@@ -22,7 +24,7 @@ class Thread extends Model
     }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
     }
     public function category()
     {

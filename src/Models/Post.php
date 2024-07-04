@@ -8,6 +8,7 @@ use Appslankan\Forum\Models\Thread;
 use Appslankan\Forum\User;
 class Post extends Model
 {
+   
     use HasFactory;
     protected $fillable = [
         'body',

@@ -16,21 +16,18 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('body');
-            $table->foreignId('author_id')->constrained('App\Models\User')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('sloved')->default('no');
+            $table->integer('reply_count')->default(0);
+            $table->foreignId('author_id')->constrained(config('table.user_model'))->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->on('categories')->onDelete('cascade');
-           
-
-          
             $table->timestamps();
         });
         Schema::create($prefix.'posts', function (Blueprint $table) {
+
             $table->id();
             $table->text('content');
-            $table->foreignId('user_id') ->constrained('App\Models\User')->onUpdate('cascade')->onDelete('cascade');
-      
+            $table->foreignId('user_id') ->constrained(config('table.user_model'))->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('thread_id')->constrained()->on('threads')->onDelete('cascade');
-
-
             $table->timestamps();
         });
 
@@ -39,6 +36,13 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('color')->nullable();
+            $table->timestamps();
+        });
+        Schema::create($prefix.'thread_read', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('thread_id') ->constrained(config('table.thread_model'))->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained(config('table.user_model'))->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
 
@@ -53,5 +57,6 @@ return new class extends Migration
         Schema::dropIfExists($prefix.'threads');
         Schema::dropIfExists($prefix.'posts');
         Schema::dropIfExists($prefix.'categories');
+        Schema::dropIfExists($prefix.'thread_read');
     }
 };
