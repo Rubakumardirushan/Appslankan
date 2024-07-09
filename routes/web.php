@@ -2,4 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Appslankan\Forum\Http\Controllers\ForumController;
-Route::get('forum', [ForumController::class, 'index']);
+Route::group(['middleware' => ['web']], function () {
+    Route::get('forum', [ForumController::class, 'index']);
+});
+
