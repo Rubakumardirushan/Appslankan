@@ -22,6 +22,6 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "livewire/livewire": "dev-main"
+        "livewire/livewire": "^3.5"
     }
 }
