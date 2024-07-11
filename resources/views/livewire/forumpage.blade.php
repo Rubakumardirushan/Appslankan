@@ -75,7 +75,9 @@
 
     <div class="flex flex-1 lg:mt-0 mt-16">
         <aside class="hidden lg:block">
+            @if($loginpage == false)
             @include('forum-flex::livewire.sidebar')
+            @endif
         </aside>
         <main class="flex-1 w-full">
             @include('forum-flex::livewire.content')
