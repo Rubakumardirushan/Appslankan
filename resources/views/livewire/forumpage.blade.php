@@ -56,9 +56,10 @@
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
     @if($loginpage)
-    @include('forum-flex::livewire.header')
-    @else
     @include('forum-flex::livewire.authheader')
+    
+    @else
+    @include('forum-flex::livewire.header')
     @endif
     
     <!-- Mobile dropdown -->
