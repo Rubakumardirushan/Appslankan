@@ -16,9 +16,9 @@ class Forumpage extends Component
     
     public function mount(){
     if(Auth::check()){
-        $this->loginpage = true;
-    }else{
         $this->loginpage = false;
+    }else{
+        $this->loginpage = true;
     }
 }
 
