@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class ForumController extends BaseController
 {
     public function index(){
-        return view('forum-flex::livewire.login');
+        return view('forum-flex::livewire.forum');
      
     }
 }
