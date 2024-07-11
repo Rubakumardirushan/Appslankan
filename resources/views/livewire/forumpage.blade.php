@@ -55,7 +55,7 @@
     </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
-    @if($loginpage)
+    @if($loginpage == false)
     @include('forum-flex::livewire.authheader')
     
     @else
