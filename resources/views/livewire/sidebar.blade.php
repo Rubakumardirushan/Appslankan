@@ -9,10 +9,10 @@
 <body>
 <div class="mt-16">
     <div id="sidebar-content" class="bg-gray-200 w-64 p-4 flex flex-col space-y-4 lg:block hidden">
-        <button id="newDiscussionBtn" class="mt-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full">New Discussion</button>
+        <button wire:click.prevent="showthreadpage()" id="newDiscussionBtn" class="mt-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full">New Discussion</button>
         
         <div class="mt-4">
-            <button class="mt-2 bg-green-500 text-white p-2 rounded hover:bg-green-600 w-full">Add Category</button>
+            <button wire:click.prevent="showcatgoerypage()" id="addCategoryBtn" class="mt-2 bg-green-500 text-white p-2 rounded hover:bg-green-600 w-full">Add Category</button>
         </div>
         
         <nav class="space-y-2">
@@ -24,65 +24,58 @@
 </div>
 
 <!-- Modal for New Discussion Form -->
-<div id="newDiscussionModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+ @if($threadpage)
+<div id="newDiscussionModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center ">
     <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <div class="flex justify-between items-center">
             <h2 class="text-xl font-semibold mb-4">New Discussion</h2>
-            <button id="closeModalBtn" class="text-gray-600">&times;</button>
+            <button wire:click.prevent="hidethreadpage()" id="closeNewDiscussionModalBtn" class="text-gray-600">&times;</button>
         </div>
-        <form id="discussionForm">
+        <form id="discussionForm" wire:submit.prevent="store">
             <div class="mb-4">
                 <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-                <select id="category" name="category" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                    <option value="">Select a category</option>
-                    <option value="Category1">Category 1</option>
-                    <option value="Category2">Category 2</option>
-                    <option value="Category3">Category 3</option>
+                <select wire:model="category" id="category" name="category" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="mb-4">
                 <label for="thread" class="block text-sm font-medium text-gray-700">Thread</label>
-                <input type="text" id="thread" name="thread" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <input type="text" wire:model="thread" id="thread" name="thread" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
             </div>
             <div class="mb-4">
                 <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
-                <textarea id="body" name="body" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
+                <textarea id="body" wire:model="body" name="body" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
             </div>
             <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full">Submit</button>
         </form>
     </div>
 </div>
+@endif
+<!-- Modal for Add Category Form -->
 
-<script>
-    // Get elements
-    var newDiscussionBtn = document.getElementById('newDiscussionBtn');
-    var newDiscussionModal = document.getElementById('newDiscussionModal');
-    var closeModalBtn = document.getElementById('closeModalBtn');
+@if($catgoerypage)
+<div id="addCategoryModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center ">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div class="flex justify-between items-center">
+            <h2 class="text-xl font-semibold mb-4">Add Category</h2>
+            <button Wire:click.prevent="hidecatgoerypage()" id="closeAddCategoryModalBtn" class="text-gray-600">&times;</button>
+        </div>
+        <form id="categoryForm" wire:submit="addCategory">
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" wire:model="name" id="name" name="name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea id="description" wire:model="description" name="description" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
+            </div>
+            <button type="submit" class="bg-green-500 text-white p-2 rounded hover:bg-green-600 w-full">Submit</button>
+        </form>
+    </div>
+</div>
+@endif
 
-    // Show modal
-    newDiscussionBtn.onclick = function() {
-        newDiscussionModal.classList.remove('hidden');
-    }
-
-    // Hide modal
-    closeModalBtn.onclick = function() {
-        newDiscussionModal.classList.add('hidden');
-    }
-
-    // Hide modal when clicking outside of the modal content
-    window.onclick = function(event) {
-        if (event.target == newDiscussionModal) {
-            newDiscussionModal.classList.add('hidden');
-        }
-    }
-
-    // Handle form submission
-    document.getElementById('discussionForm').onsubmit = function(event) {
-        event.preventDefault();
-        // Handle form submission logic here
-        newDiscussionModal.classList.add('hidden');
-        alert('Form submitted!');
-    }
-</script>
 </body>
 </html>
