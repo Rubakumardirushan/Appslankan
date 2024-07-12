@@ -9,7 +9,7 @@ use Appslankan\Forum\Models\Category;
 
 class Forumpage extends Component
 {
-    public $thread,$body,$catgoery,$threads,$categories,$name,$description;
+    public $thread,$body,$category,$threads,$categories,$name,$description;
     public $loginpage=false;
     public $threadpage=false,$catgoerypage=false;
     public $successMessage;
@@ -25,6 +25,7 @@ class Forumpage extends Component
     
     public function mount(){
         $this->categories = Category::all();
+        $this->threads = Thread::all();
       
     if(Auth::check()){
         $this->loginpage = false;
@@ -36,20 +37,26 @@ class Forumpage extends Component
 
 public function store(){
    
-   
+   $this->validate([
+        'thread' => 'required|string|max:255',
+        'body' => 'required',
+       'category' => 'required|integer',
+    ]);
  
     $threadq = new Thread();
     $threadq->title = $this->thread;
     $threadq->body = $this->body;
-  
-    $threadq->category_id = 1;
-    $threadq->author_id = Auth::id();
+
+    $threadq->category_id = $this->category;
+    $threadq->author_id =1;
     $threadq->save();
     $this->successMessage = 'Category added successfully!';
     $this->thread = '';
     $this->body = '';
     $this->catgoery = '';
-    $this->hidecatgoerypage();
+ 
+    $this->hidethreadpage();
+    $this->threads = Thread::all();
    
 
 
@@ -60,6 +67,7 @@ public function addCategory()
         $this->validate([
             'name' => 'required|string|max:255|unique:forum_flex_categories',
             'description' => 'required|string|max:500',
+
         ]);
 
         $cats = new Category();

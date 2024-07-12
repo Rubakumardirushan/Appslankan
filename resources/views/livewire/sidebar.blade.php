@@ -35,18 +35,22 @@
             <div class="mb-4">
                 <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
                 <select wire:model="category" id="category" name="category" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                    @foreach($categories as $cat)
+                   <option value="">add cat</option>
+                @foreach($categories as $cat)
                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                     @endforeach
                 </select>
+                @error('category') <span class="error bg-red ">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label for="thread" class="block text-sm font-medium text-gray-700">Thread</label>
                 <input type="text" wire:model="thread" id="thread" name="thread" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                @error('thread') <span class="error bg-red ">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
                 <textarea id="body" wire:model="body" name="body" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
+                @error('body') <span class="error bg-red ">{{ $message }}</span> @enderror
             </div>
             <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-full">Submit</button>
         </form>
