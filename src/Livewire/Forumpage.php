@@ -6,20 +6,26 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Appslankan\Forum\Models\Thread;
 use Appslankan\Forum\Models\Category;
+
 class Forumpage extends Component
 {
     public $thread,$body,$catgoery,$threads,$categories,$name,$description;
     public $loginpage=false;
     public $threadpage=false,$catgoerypage=false;
+    public $successMessage;
     public function render()
     {
         
+        if($this->categories==null){
+            $this->categoires="this null";
+        }
         return view('forum-flex::livewire.forumpage');
     }
     
     
     public function mount(){
-        
+        $this->categories = Category::all();
+      
     if(Auth::check()){
         $this->loginpage = false;
     }else{
@@ -35,35 +41,38 @@ public function store(){
     $threadq = new Thread();
     $threadq->title = $this->thread;
     $threadq->body = $this->body;
-    $cat_id=Category::where('name',$this->catgoery)->first();
-    $threadq->category_id = $cat_id->id;
+  
+    $threadq->category_id = 1;
     $threadq->author_id = Auth::id();
     $threadq->save();
- 
+    $this->successMessage = 'Category added successfully!';
     $this->thread = '';
     $this->body = '';
     $this->catgoery = '';
-    $this->threadpage = false;
-    $this->categories = Category::all();
-        $this->threads=Thread::all();
+    $this->hidecatgoerypage();
+   
 
 
 }
 
-public function addCategory(){
-$cats= new Category();
-$cats->name = $this->name;
-$cats->description = $this->description;
-$cats->save();
-$this->name = '';
-$this->description = '';
-$this->catgoerypage = false;
-$this->categories = Category::all();
-$this->threads=Thread::all();
+public function addCategory()
+    {
+        $this->validate([
+            'name' => 'required|string|max:255|unique:forum_flex_categories',
+            'description' => 'required|string|max:500',
+        ]);
 
+        $cats = new Category();
+        $cats->name = $this->name;
+        $cats->description = $this->description;
+        $cats->save();
 
+        $this->name = '';
+        $this->description = '';
+        $this->categories = Category::all();
+        $this->hidecatgoerypage();
 
-}
+    }
 public function showthreadpage(){
     
     $this->threadpage = true;

@@ -62,19 +62,22 @@
             <h2 class="text-xl font-semibold mb-4">Add Category</h2>
             <button Wire:click.prevent="hidecatgoerypage()" id="closeAddCategoryModalBtn" class="text-gray-600">&times;</button>
         </div>
-        <form id="categoryForm" wire:submit="addCategory">
+        <form id="categoryForm" >
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                 <input type="text" wire:model="name" id="name" name="name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                @error('name') <span class="error bg-red ">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                 <textarea id="description" wire:model="description" name="description" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
+                @error('description') <span class="error">{{ $message }}</span> @enderror
             </div>
-            <button type="submit" class="bg-green-500 text-white p-2 rounded hover:bg-green-600 w-full">Submit</button>
+            <button wire:click.prevent="addCategory()" type="submit" class="bg-green-500 text-white p-2 rounded hover:bg-green-600 w-full">Submit</button>
         </form>
     </div>
 </div>
+
 @endif
 
 </body>
