@@ -63,7 +63,7 @@
     @endif
     
     <!-- Mobile dropdown -->
-    <div class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white text-black p-2 flex flex-1 lg:mt-0 mt-16">
+    <div class="lg:hidden  top-0 left-0 right-0 z-50 bg-white text-black p-2 flex flex-1 lg:mt-0 mt-2">
         <select name="" id="mobile-dropdown" class="w-full bg-white text-black border border-gray-300 rounded px-2 py-1">
             <option value="">New Discussion</option>
             <option value="">Add Category</option>
@@ -75,7 +75,7 @@
 
     <div class="flex flex-1 lg:mt-0 mt-16">
         <aside class="hidden lg:block">
-            @if($loginpage==true)
+            @if($loginpage==false)
             @include('forum-flex::livewire.sidebar')
             @endif
         </aside>

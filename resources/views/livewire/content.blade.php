@@ -8,6 +8,10 @@
                 <p class="text-gray-600 leading-normal break-words" style="word-break: break-all;">
                     {{ $thread->body }}
                 </p>
+                <div class="mt-4 flex justify-between items-center">
+                    <span class="text-sm text-gray-500">{{ $thread->created_at->diffForHumans() }}</span>
+                    <span class="text-sm font-medium text-blue-600 bg-blue-100 rounded-full px-3 py-1">{{ $thread->category_name }}</span>
+                </div>
             </div>
         @endforeach
     </div>

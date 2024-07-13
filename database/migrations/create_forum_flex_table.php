@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('reply_count')->default(0);
             $table->foreignId('author_id')->constrained(config('table.user_model'))->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->on('categories')->onDelete('cascade');
+            $table->string('category_name')->nullable();
             
             $table->timestamps();
         });

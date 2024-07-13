@@ -46,8 +46,10 @@ public function store(){
     $threadq = new Thread();
     $threadq->title = $this->thread;
     $threadq->body = $this->body;
-
+   
+    $threadq->category_name = Category::where('id',$this->category)->pluck('name')->first();
     $threadq->category_id = $this->category;
+    
     $threadq->author_id =1;
     $threadq->save();
     $this->successMessage = 'Category added successfully!';

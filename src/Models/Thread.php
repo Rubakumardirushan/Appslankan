@@ -15,6 +15,7 @@ class Thread extends Model
         'title',
         'body',
        'category_id',
+       'category_name',
          'author_id',
          'slowved',
         'reply_count'
