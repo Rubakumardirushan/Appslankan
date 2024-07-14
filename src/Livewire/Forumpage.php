@@ -55,6 +55,19 @@ class Forumpage extends Component
         $this->showRegisterpage = false;
         $this->loginpage = false;
     }
+    public function logind(){
+        $validate = $this->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+            $this->loginpage = false;
+            $this->showLoginpage = false;
+           
+        } else {
+            $this->loginpage = true;
+        }
+    }
     public function store()
     {
         $this->validate([
@@ -68,15 +81,15 @@ class Forumpage extends Component
         $threadq->body = $this->body;
         $threadq->category_name = Category::where('id', $this->category)->pluck('name')->first();
         $threadq->category_id = $this->category;
-        $threadq->author_id = 1;
+        $threadq->author_id = Auth::id();
         $threadq->save();
-        $this->title= '';
-        $this->body = '';
-        $this->category = '';
 
         $this->successMessage = 'Category added successfully!';
         $this->hidethreadpage();
         $this->threads = Thread::all();
+        $this->thread = '';
+        $this->body = '';
+        $this->category = '';
     }
 
     public function addCategory()
@@ -99,10 +112,13 @@ class Forumpage extends Component
 
     public function showthreadpage()
     {
+       
+        $this->threadpage = true;
         $this->thread = '';
         $this->body = '';
         $this->category = '';
-        $this->threadpage = true;
+     
+        
     }
 
     public function hidethreadpage()
@@ -156,5 +172,12 @@ class Forumpage extends Component
     public function closelogin()
     {
         $this->showLoginpage = false;
+    }
+    public function logout()
+    {
+         $this->email='';
+            $this->password='';
+        Auth::logout();
+        $this->loginpage = true;
     }
 }
