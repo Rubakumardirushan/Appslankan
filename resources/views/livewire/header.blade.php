@@ -10,7 +10,8 @@
         </div>
         <div style="display: flex; align-items: center; margin-left: auto;">
             <input type="text" placeholder="Search Forum" style="width: 12rem; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 0.25rem; margin-right: 1rem;">
-            <button style="color: #4a5568; font-weight: 600;">Log In</button>
+            <button wire:click.prevent="login()" style="color: #4a5568; font-weight: 600; margin-right: 1rem;">Log In</button>
+            <button  wire:click.prevent="register()" style="color: #4a5568; font-weight: 600;">Register</button>
         </div>
     </div>
 </header>

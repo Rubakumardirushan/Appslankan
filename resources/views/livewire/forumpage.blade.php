@@ -81,6 +81,12 @@
         </aside>
         <main class="flex-1 w-full">
             @include('forum-flex::livewire.content')
+            @if($showRegisterpage==true)
+            @include('forum-flex::livewire.register')
+            @endif
+            @if($showLoginpage==true)
+            @include('forum-flex::livewire.login')
+            @endif
         </main>
     </div>
 </body>
