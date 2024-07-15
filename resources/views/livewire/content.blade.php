@@ -44,11 +44,12 @@
 
                 <!-- Thread content -->
                 <div class="flex justify-between items-center">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                        <a href="" wire:click.prevent="handleThreadClick({{$thread->id}})">
-                            {{ $thread->title }}
-                        </a>
-                    </h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2 uppercase">
+    <a href="" wire:click.prevent="handleThreadClick({{$thread->id}})">
+        <strong>{{ strtoupper($thread->title) }}</strong>
+    </a>
+</h3>
+
                     <span class="text-sm text-blue-800 uppercase font-bold">{{ $thread->author_name }}</span>
                 </div>
                 <p class="text-gray-600 leading-normal break-words" style="word-break: break-all;">
