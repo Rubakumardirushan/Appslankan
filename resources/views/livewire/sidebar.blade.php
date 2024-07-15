@@ -8,7 +8,7 @@
 </head>
 <body class="flex flex-col h-screen">
 <!-- Mobile menu button -->
-<button id="mobileMenuButton" class="lg:hidden p-4 bg-blue-500 text-white">Menu</button>
+
 
 <div class="flex flex-1">
     <div id="sidebar-content" class="bg-gray-200 w-64 p-4 flex flex-col space-y-4 lg:block hidden">

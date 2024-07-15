@@ -239,7 +239,8 @@ public function update(){
     $this->category = '';
     $this->editpage=false;
 }
-public function destory(){
+
+public function destroy(){
     $thread=Thread::where('id',$this->authid)->delete();
     $this->threads = Thread::all();
     $this->act=false;
