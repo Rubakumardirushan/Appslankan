@@ -16,6 +16,7 @@ class Forumpage extends Component
     public $showRegisterpage = false, $showLoginpage = false;
     public $successMessage;
     public $username, $password, $email, $password_confirmation;
+    public $act=false,$authid=false;
 
     public function render()
     {
@@ -82,6 +83,7 @@ class Forumpage extends Component
         $threadq->category_name = Category::where('id', $this->category)->pluck('name')->first();
         $threadq->category_id = $this->category;
         $threadq->author_id = Auth::id();
+        $threadq->author_name = Auth::user()->name;
         $threadq->save();
 
         $this->successMessage = 'Category added successfully!';
@@ -164,7 +166,8 @@ class Forumpage extends Component
         if ($loginRouteExists) {
             return redirect()->route('login');
         } else {
-        
+        $this->email='';
+        $this->password='';
         $this->showLoginpage = true;
         }
     }
@@ -179,5 +182,30 @@ class Forumpage extends Component
             $this->password='';
         Auth::logout();
         $this->loginpage = true;
+    }
+    public function faction($id){
+
+        if($this->act==false){
+        $check=Thread::where('id',$id)->where('author_id',Auth::id())->first();
+        $this->authid=$id;
+        if($check){
+            $this->act=true;
+        }
+        else{
+            $this->act=false;
+        }
+    }
+    else{
+        $this->act=false;
+    }
+      
+
+    }
+
+
+    public function destory(){
+        $thread=Thread::where('id',$this->authid)->delete();
+        $this->threads = Thread::all();
+        $this->act=false;
     }
 }

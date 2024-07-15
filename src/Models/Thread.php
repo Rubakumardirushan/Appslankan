@@ -17,8 +17,10 @@ class Thread extends Model
        'category_id',
        'category_name',
          'author_id',
-         'slowved',
-        'reply_count'
+         'sloved',
+        'reply_count',
+        'view_count',
+        'author_name'
     ];
     public function posts()
     {

@@ -18,10 +18,11 @@ return new class extends Migration
             $table->text('body');
             $table->string('sloved')->default('no');
             $table->integer('reply_count')->default(0);
+            $table->integer('view_count')->default(0);
             $table->foreignId('author_id')->constrained(config('table.user_model'))->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->on('categories')->onDelete('cascade');
             $table->string('category_name')->nullable();
-            
+            $table->string('author_name')->nullable();
             $table->timestamps();
         });
         Schema::create($prefix.'posts', function (Blueprint $table) {
