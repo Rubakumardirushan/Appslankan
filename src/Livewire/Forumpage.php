@@ -17,7 +17,7 @@ class Forumpage extends Component
     public $showRegisterpage = false, $showLoginpage = false;
     public $successMessage;
     public $username, $password, $email, $password_confirmation;
-    public $act=false,$authid=false,$editpage=false,$spam=false;
+    public $authid=false,$editpage=false;
 
     public function render()
     {
@@ -37,6 +37,8 @@ class Forumpage extends Component
         } else {
             $this->loginpage = true;
         }
+     
+        $this->authid=false;
     }
 
     public function registerd(){
@@ -186,25 +188,10 @@ class Forumpage extends Component
         $this->loginpage = true;
     }
     public function faction($id){
-        if($this->spam==false){
-            $this->spam=true;
-        }
-        else{
-            $this->spam=false;
-        }
-        if($this->act==false){
-        $check=Thread::where('id',$id)->where('author_id',Auth::id())->first();
+       
         $this->authid=$id;
-        if($check){
-            $this->act=true;
-        }
-        else{
-            $this->act=false;
-        }
-    }
-    else{
-        $this->act=false;
-    }
+       
+        
       
 
     }

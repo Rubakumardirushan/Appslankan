@@ -15,7 +15,7 @@
                 @endif
 
                 <!-- Conditional Edit and Delete options -->
-                @if($act && $thread->author_id == auth()->id() && $authid == $thread->id)
+                @if( $thread->author_id == auth()->id() && $authid == $thread->id)
                     <div id="options-{{ $thread->id }}" class="absolute top-0 right-0 mt-10 mr-2 bg-white border border-gray-200 rounded-md shadow-lg">
                         <button wire:click.prevent="edit()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none">
                             <svg class="h-5 w-5 inline-block mr-2 text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -32,7 +32,7 @@
                     </div>
                 @endif
 
-                @if($spam && $thread->author_id != auth()->id() && $authid == $thread->id)
+                @if(  $thread->author_id != auth()->id() && $authid == $thread->id)
                     <!-- Report Spam button -->
                     <button class="absolute top-0 right-0 mt-10 mr-2 bg-white border border-gray-200 rounded-md shadow-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none">
                         <svg class="h-5 w-5 inline-block mr-2 text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
