@@ -12,6 +12,7 @@ class Forumpage extends Component
 {
     public $thread, $body, $category, $threads, $categories, $name, $description;
     public $loginpage = false;
+    public $postpage=false;
     public $threadpage = false, $catgoerypage = false;
     public $showRegisterpage = false, $showLoginpage = false;
     public $successMessage;
@@ -245,4 +246,14 @@ public function destroy(){
     $this->threads = Thread::all();
     $this->act=false;
 }
+
+public function handleThreadClick($id)
+{
+    dd($id);
+    $this->postpage=true;
+    $this->thread = Thread::where('id', $id)->first();
+    
+
+}
+
 }

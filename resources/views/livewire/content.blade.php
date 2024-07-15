@@ -6,11 +6,12 @@
             <div class="relative p-6 bg-white rounded-lg shadow-md border border-gray-200">
                 <!-- Three dots icon button -->
                 @if(!$loginpage)
-                    <button class="absolute top-0 right-0 mt-2 mr-2 focus:outline-none" wire:click.prevent="faction({{ $thread->id }})">
-                        <svg class="h-6 w-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                        </svg>
-                    </button>
+                <button class="absolute top-0 right-0 mt-2 mr-2 focus:outline-none" wire:click.prevent="faction({{ $thread->id }})">
+    <svg class="h-6 w-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </svg>
+</button>
+
                 @endif
 
                 <!-- Conditional Edit and Delete options -->
@@ -43,15 +44,12 @@
 
                 <!-- Thread content -->
                 <div class="flex justify-between items-center">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $thread->title }}</h3>
-                    <div class="flex items-center">
-                        <span class="text-sm text-blue-800 uppercase">{{ $thread->author_name }}</span>
-                        @if($thread->is_verified)
-                            <svg class="h-5 w-5 ml-1 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 19l-9-9 1.414-1.414L10 16.172l8.586-8.586L19 10l-9 9z" clip-rule="evenodd" />
-                            </svg>
-                        @endif
-                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                        <a href="" wire:click.prevent="handleThreadClick({{$thread->id}})">
+                            {{ $thread->title }}
+                        </a>
+                    </h3>
+                    <span class="text-sm text-blue-800 uppercase font-bold">{{ $thread->author_name }}</span>
                 </div>
                 <p class="text-gray-600 leading-normal break-words" style="word-break: break-all;">
                     {{ $thread->body }}
