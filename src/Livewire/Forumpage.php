@@ -16,7 +16,7 @@ class Forumpage extends Component
     public $showRegisterpage = false, $showLoginpage = false;
     public $successMessage;
     public $username, $password, $email, $password_confirmation;
-    public $act=false,$authid=false;
+    public $act=false,$authid=false,$editpage=false;
 
     public function render()
     {
@@ -126,6 +126,7 @@ class Forumpage extends Component
     public function hidethreadpage()
     {
         $this->threadpage = false;
+        $this->editpage=false;
     }
 
     public function showcatgoerypage()
@@ -208,4 +209,33 @@ class Forumpage extends Component
         $this->threads = Thread::all();
         $this->act=false;
     }
+
+public function edit(){
+    $thread=Thread::where('id',$this->authid)->first();
+    $this->thread=$thread->title;
+    $this->body=$thread->body;
+    $this->category=$thread->category_id;
+    $this->act=false;
+    $this->editpage=true;
+}
+ 
+public function update(){
+    $this->validate([
+        'thread' => 'required|string|max:255',
+        'body' => 'required',
+        'category' => 'required|integer',
+    ]);
+    $thread=Thread::where('id',$this->authid)->first();
+    $thread->title = $this->thread;
+    $thread->body = $this->body;
+    $thread->category_name = Category::where('id', $this->category)->pluck('name')->first();
+    $thread->category_id = $this->category;
+
+    $thread->save();
+    $this->threads = Thread::all();
+    $this->thread = '';
+    $this->body = '';
+    $this->category = '';
+    $this->editpage=false;
+}
 }

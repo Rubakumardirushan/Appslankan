@@ -12,7 +12,7 @@
                 <!-- Edit and Delete options -->
                  @if($act== true && $thread->author_id == auth()->id() && $authid == $thread->id)
                 <div id="options-{{ $thread->id }}" class=" absolute top-0 right-0 mt-10 mr-2 bg-white border border-gray-200 rounded-md shadow-lg">
-                    <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" >Edit</button>
+                    <button wire:click.prevent="edit()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none" >Edit</button>
                     <button wire:click.prevent="destory()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 focus:outline-none ">Delete</button>
                 </div>
             
