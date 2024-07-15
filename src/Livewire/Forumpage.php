@@ -16,7 +16,7 @@ class Forumpage extends Component
     public $showRegisterpage = false, $showLoginpage = false;
     public $successMessage;
     public $username, $password, $email, $password_confirmation;
-    public $act=false,$authid=false,$editpage=false;
+    public $act=false,$authid=false,$editpage=false,$spam=false;
 
     public function render()
     {
@@ -185,7 +185,12 @@ class Forumpage extends Component
         $this->loginpage = true;
     }
     public function faction($id){
-
+        if($this->spam==false){
+            $this->spam=true;
+        }
+        else{
+            $this->spam=false;
+        }
         if($this->act==false){
         $check=Thread::where('id',$id)->where('author_id',Auth::id())->first();
         $this->authid=$id;
@@ -204,11 +209,7 @@ class Forumpage extends Component
     }
 
 
-    public function destory(){
-        $thread=Thread::where('id',$this->authid)->delete();
-        $this->threads = Thread::all();
-        $this->act=false;
-    }
+   
 
 public function edit(){
     $thread=Thread::where('id',$this->authid)->first();
@@ -237,5 +238,10 @@ public function update(){
     $this->body = '';
     $this->category = '';
     $this->editpage=false;
+}
+public function destory(){
+    $thread=Thread::where('id',$this->authid)->delete();
+    $this->threads = Thread::all();
+    $this->act=false;
 }
 }
