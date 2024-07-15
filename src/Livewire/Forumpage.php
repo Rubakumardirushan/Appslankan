@@ -188,7 +188,9 @@ class Forumpage extends Component
         $this->loginpage = true;
     }
     public function faction($id){
-       
+       if($this->authid==$id){
+        $id=$id+1;
+       }
         $this->authid=$id;
        
         
