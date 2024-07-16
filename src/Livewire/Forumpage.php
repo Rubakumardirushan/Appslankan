@@ -19,6 +19,7 @@ class Forumpage extends Component
     public $username, $password, $email, $password_confirmation;
     public $authid=false,$editpage=false;
     public $hidecentent=false;
+    public $newicons=false;
 
     public function render()
     {
@@ -30,6 +31,7 @@ class Forumpage extends Component
 
     public function mount()
     {
+        
         $this->categories = Category::all();
         $this->threads = Thread::all();
 
@@ -189,13 +191,15 @@ class Forumpage extends Component
         $this->loginpage = true;
     }
     public function faction($id){
-       if($this->authid==$id){
-        $id=$id+1;
-       }
-        $this->authid=$id;
-       
-        
       
+        $this->authid=$id;
+        $this->newicons=true;
+       
+    
+    }
+    public function fdaction($id){
+        $this->authid='';
+        $this->newicons=false;
 
     }
 
@@ -229,6 +233,7 @@ public function update(){
     $this->body = '';
     $this->category = '';
     $this->editpage=false;
+    $this->authid=100000;
 }
 
 public function destroy(){
@@ -247,9 +252,12 @@ public function handleThreadClick($id)
 
 }
 public function allthreads(){
+    $this->hidecentent=false;
+    $this->authid='';
     $this->threads = Thread::all();
 }
 public function myquestion(){
+    $this->hidecentent=false;
     $this->threads = Thread::where('author_id', Auth::id())->get();
 }
 public function allcategory(){

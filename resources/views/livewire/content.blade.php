@@ -6,11 +6,20 @@
             @foreach($threads as $thread)
                 <div class="relative p-6 bg-white rounded-lg shadow-md border border-gray-200">
                     @if(!$loginpage)
+                    @if($newicons== false || $authid != $thread->id)
                         <button class="absolute top-0 right-0 mt-2 mr-2 focus:outline-none" wire:click.prevent="faction({{ $thread->id }})">
                             <svg class="h-6 w-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </button>
+                        @endif
+                        @if($newicons== true && $authid == $thread->id)
+                        <button class="absolute top-0 right-0 mt-2 mr-2 focus:outline-none" wire:click.prevent="fdaction({{ $thread->id }})">
+                            <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </button>
+                        @endif
                     @endif
 
                     @if($thread->author_id == auth()->id() && $authid == $thread->id)
