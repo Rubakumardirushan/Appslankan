@@ -24,7 +24,7 @@ class Forumpage extends Component
     public $showform=false;
     public $replayform=false,$post;
     public $replies,$repliesform=false;
-
+public $authids;
     public function render()
     {
         if ($this->categories == null) {
@@ -241,8 +241,12 @@ public function update(){
 }
 
 public function destroy(){
+    // post and thread hasmany relatuons so thread delete so relat post delete
+    $postss=Post::where('thread_id',$this->authid)->delete();
     $thread=Thread::where('id',$this->authid)->delete();
+
     $this->threads = Thread::all();
+    $this->replies=Post::where('thread_id', $this->authid)->get();
     $this->act=false;
 }
 
@@ -313,6 +317,8 @@ public function storepost($id){
     $this->threads = Thread::where('id', $id)->get();
     $this->showform=true;
     $this->replies=Post::where('thread_id', $id)->get();
+    $this->replayform=false;
+    $this->authids='';
 
 }
 public function sloved($id){
@@ -322,7 +328,7 @@ public function sloved($id){
     $thread->sloved='yes';
     $thread->save();
     
-    $this->authid='';
+    $this->authids='';
     $this->newicons=false;
     $this->threads = Thread::all();
 
@@ -331,9 +337,9 @@ public function sloved($id){
 
 }
 public function replaypost($name,$id){
-    $this->replayform=true;
+    $this->replayform=false;
     $this->post='@'.$name;
-    $this->authid=$id;
+    $this->authids=$id;
     
 }
 }
