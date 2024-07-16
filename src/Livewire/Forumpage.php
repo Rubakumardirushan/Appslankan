@@ -18,6 +18,7 @@ class Forumpage extends Component
     public $successMessage;
     public $username, $password, $email, $password_confirmation;
     public $authid=false,$editpage=false;
+    public $hidecentent=false;
 
     public function render()
     {
@@ -238,11 +239,25 @@ public function destroy(){
 
 public function handleThreadClick($id)
 {
-    dd($id);
+   /* dd($id);
     $this->postpage=true;
     $this->thread = Thread::where('id', $id)->first();
-    
+    */
+    $this->threads = Thread::where('id', $id)->get();
 
 }
-
+public function allthreads(){
+    $this->threads = Thread::all();
+}
+public function myquestion(){
+    $this->threads = Thread::where('author_id', Auth::id())->get();
+}
+public function allcategory(){
+    $this->categories = Category::all();
+    $this->hidecentent=true;
+}
+public function showtcats($id){
+    $this->threads = Thread::where('category_id', $id)->get();
+    $this->hidecentent=false;
+}
 }
