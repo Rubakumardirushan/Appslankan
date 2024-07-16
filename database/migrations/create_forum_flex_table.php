@@ -16,7 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('body');
-            $table->string('sloved')->default('no');
+            $table->boolean('sloved')->nullable();
+
             $table->integer('reply_count')->default(0);
             $table->integer('view_count')->default(0);
             $table->foreignId('author_id')->constrained(config('table.user_model'))->onUpdate('cascade')->onDelete('cascade');
@@ -29,6 +30,7 @@ return new class extends Migration
 
             $table->id();
             $table->text('content');
+            $table->string('user_name')->nullable();
             $table->foreignId('user_id') ->constrained(config('table.user_model'))->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('thread_id')->constrained()->on('threads')->onDelete('cascade');
             $table->timestamps();

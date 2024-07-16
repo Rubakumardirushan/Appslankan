@@ -36,6 +36,8 @@
                                 </svg>
                                 Delete
                             </button>
+                          
+
                         </div>
                     @endif
 
@@ -60,11 +62,52 @@
                         {{ $thread->body }}
                     </p>
                     <div class="mt-4 flex justify-between items-center">
-                        <span class="text-sm text-gray-500">{{ $thread->created_at->diffForHumans() }}</span>
+                        <span class="text-sm text-gray-500">{{ $thread->created_at->diffForHumans() }} 
+                        @if($showform==true)
+                        <button wire:click.prevent="replaytread('{{ $thread->author_name }}')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded">Replay</button>
+
+                      
+                @endif
+                        </span>
+                    
                         <span class="text-sm font-medium text-blue-600 bg-blue-100 rounded-full px-3 py-1">{{ $thread->category_name }}</span>
                     </div>
                 </div>
+            
+
+
+
             @endforeach
+            @if($repliesform == true)
+    <div class="bg-gray-100 p-4 rounded-lg">
+        @foreach($replies as $reply)
+            <div class="mb-4 p-4 bg-white rounded shadow">
+            <p class="text-gray-600 font-bold">{{$reply->user_name}}</p>
+                <p class="text-gray-800 mb-2">{{$reply->content}}</p>
+                <span class="text-sm text-gray-500">{{$reply->created_at->diffForHumans()}}</span>
+                <button wire:click.prevent="replaypost('{{ $reply->user_name }}','{{$reply->id}}')" class="bg-blue-300 hover:bg-blue-700 text-white  px-1 rounded">Replay</button>
+                
+            </div>
+            @if($showform==true && $replayform==true && $authid==$reply->id)
+              <form>
+            <div class="mb-4">
+                <label for="content" class="block text-gray-700 font-bold mb-2">Your Reply</label>
+                <textarea wire:model="post" id="content" name="content" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Write your reply here..."></textarea>
+            </div>
+            <div class="flex items-center justify-between">
+                <button wire:click.prevent="storepost('{{$thread->id}}')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    Submit
+                </button>
+            </div>
+        </form>
+        @endif
+        @endforeach
+    </div>
+@endif
+
+
+
+
         </div>
     @else
         <!-- Categories content -->
@@ -80,6 +123,7 @@
                     </p>
                 </div>
                 </a>
+               
             @endforeach
         </div>
     @endif

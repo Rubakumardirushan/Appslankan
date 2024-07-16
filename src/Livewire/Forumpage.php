@@ -5,6 +5,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Appslankan\Forum\Models\Thread;
 use Appslankan\Forum\Models\Category;
+use Appslankan\Forum\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,9 @@ class Forumpage extends Component
     public $authid=false,$editpage=false;
     public $hidecentent=false;
     public $newicons=false;
+    public $showform=false;
+    public $replayform=false,$post;
+    public $replies,$repliesform=false;
 
     public function render()
     {
@@ -249,23 +253,87 @@ public function handleThreadClick($id)
     $this->thread = Thread::where('id', $id)->first();
     */
     $this->threads = Thread::where('id', $id)->get();
+    $this->replies=Post::where('thread_id', $id)->get();
+   $this->repliesform=true;
+    $this->showform=true;
 
 }
 public function allthreads(){
+    $this->post='';
+    $this->replayform=false;
+    $this->showform=false;
     $this->hidecentent=false;
     $this->authid='';
     $this->threads = Thread::all();
+    $this->repliesform=false;
 }
 public function myquestion(){
+    $this->post='';
+    $this->replayform=false;
+    $this->showform=false;
     $this->hidecentent=false;
     $this->threads = Thread::where('author_id', Auth::id())->get();
+    $this->repliesform=false;
 }
 public function allcategory(){
+    $this->post='';
+    $this->replayform=false;
+    $this->showform=false;
     $this->categories = Category::all();
     $this->hidecentent=true;
+    $this->repliesform=false;
 }
 public function showtcats($id){
+    $this->showform=false;
     $this->threads = Thread::where('category_id', $id)->get();
     $this->hidecentent=false;
+    $this->repliesform=false;
+}
+public function replaytread($name){
+    
+    $this->replayform=true;
+    $this->post='@'.$name;
+    
+    
+
+}
+public function storepost($id){
+    
+    $this->validate([
+        'post' => 'required|string|max:255',
+    ]);
+    $post = new Post();
+    $post->content = $this->post;
+    $post->user_id = Auth::id();
+    $post->user_name = Auth::user()->name;
+    $post->thread_id = $id;
+    $post->save();
+    $this->replayform=false;
+    $this->post='';
+    $this->threads = Thread::where('id', $id)->get();
+    $this->showform=true;
+    $this->replies=Post::where('thread_id', $id)->get();
+
+}
+public function sloved($id){
+
+    $thread=Thread::where('id',$id)->first();
+  
+    $thread->sloved='yes';
+    $thread->save();
+    
+    $this->authid='';
+    $this->newicons=false;
+    $this->threads = Thread::all();
+
+
+
+
+}
+public function replaypost($name,$id){
+    $this->replayform=true;
+    $this->post='@'.$name;
+    $this->authid=$id;
+    
 }
 }
