@@ -20,7 +20,7 @@
             
             <nav class="space-y-2">
                 <a href="#" class="block p-2 bg-white rounded hover:bg-gray-100 text-center" wire:click.prevent="myquestion()">My Question</a>
-                <a href="#" class="block p-2 bg-white rounded hover:bg-gray-100 text-center">My Answer</a>
+                <a href="#" class="block p-2 bg-white rounded hover:bg-gray-100 text-center" wire:click.prevent="myanswer()">My Answer</a>
                 <a href="#" class="block p-2 bg-white rounded hover:bg-gray-100 text-center" wire:click.prevent="allcategory()">Category</a>
                 <a href="#" class="block p-2 bg-white rounded hover:bg-gray-100 text-center" wire:click.prevent="allthreads">All Threads</a>
             </nav>

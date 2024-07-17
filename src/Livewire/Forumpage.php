@@ -342,4 +342,16 @@ public function replaypost($name,$id){
     $this->authids=$id;
     
 }
+
+
+public function myanswer(){
+    $myids= Post::where('user_id', Auth::id())->pluck('thread_id');
+    $this->threads = Thread::whereIn('id', $myids)->get();
+    $this->post='';
+    $this->replayform=false;
+    $this->showform=false;
+    $this->hidecentent=false;
+    $this->repliesform=false;
+
+}
 }
