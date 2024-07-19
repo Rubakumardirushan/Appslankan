@@ -1,1 +1,1 @@
-hey
+composer require appslankan/forum
