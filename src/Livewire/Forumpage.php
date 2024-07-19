@@ -194,6 +194,7 @@ public $authids;
          $this->email='';
             $this->password='';
         Auth::logout();
+       
         $this->loginpage = true;
     }
     public function faction($id){
