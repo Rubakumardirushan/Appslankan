@@ -50,6 +50,7 @@ return new class extends Migration
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
+       
 
 
     }
@@ -63,5 +64,6 @@ return new class extends Migration
         Schema::dropIfExists($prefix.'posts');
         Schema::dropIfExists($prefix.'categories');
         Schema::dropIfExists($prefix.'thread_read');
+        Schema::dropIfExists($prefix.'users');
     }
 };

@@ -189,6 +189,8 @@ public $authids;
     }
     public function logout()
     {
+        $this->repliesform=false;
+        $this->showform=false;
          $this->email='';
             $this->password='';
         Auth::logout();
@@ -256,10 +258,12 @@ public function handleThreadClick($id)
     $this->postpage=true;
     $this->thread = Thread::where('id', $id)->first();
     */
+    if(Auth::id()){
     $this->threads = Thread::where('id', $id)->get();
     $this->replies=Post::where('thread_id', $id)->get();
    $this->repliesform=true;
-    $this->showform=true;
+    $this->showform=true;}
+
 
 }
 public function allthreads(){
