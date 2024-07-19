@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Appslankan\Forum\Models\Thread;
 use Appslankan\Forum\Models\Category;
 use Appslankan\Forum\Models\Post;
+use Appslankan\Forum\Models\Thread_read;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
@@ -260,6 +261,20 @@ public function handleThreadClick($id)
     $this->thread = Thread::where('id', $id)->first();
     */
     if(Auth::id()){
+        $check = Thread_read::where('thread_id', $id)
+        ->where('user_id', Auth::id())
+        ->first();
+    if($check == null){
+        $viewthred=Thread::where('id',$id)->first();
+        $viewthred->view_count=$viewthred->view_count+1;
+        $viewthred->save();
+         $vthred= new Thread_read();
+        $vthred->thread_id=$id;
+        $vthred->user_id=Auth::id();
+        $vthred->read_at=now();
+        $vthred->save();
+     
+    }
     $this->threads = Thread::where('id', $id)->get();
     $this->replies=Post::where('thread_id', $id)->get();
    $this->repliesform=true;
